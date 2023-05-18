@@ -6,6 +6,13 @@ pipeline {
         kind: Pod
         spec:
           containers:
+          - name: maven
+            image: maven:3.8.4-openjdk-17-slim
+            imagePullPolicy: IfNotPresent
+            command:
+            - sleep
+            args:
+            - 99d
           - name: kaniko
             image: gcr.io/kaniko-project/executor:v1.6.0-debug
             imagePullPolicy: IfNotPresent
@@ -47,7 +54,14 @@ pipeline {
                   checkout scm
                 }
               }
-              
+              stage('Maven') {
+                steps {
+                  container('maven') {
+                    sh 'mvn install -DskipTests'
+                    sh 'mvn package -DskipTests'
+                  }
+                }
+              }
               stage('Kaniko') {
                 steps {
                     container('kaniko') {
