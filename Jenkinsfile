@@ -23,6 +23,13 @@ pipeline {
             volumeMounts:
               - name: jenkins-docker-cfg
                 mountPath: /kaniko/.docker
+          - name: kubectl
+            image: bitnami/kubectl
+            imagePullPolicy: IfNotPresent
+            command:
+            - sleep
+            args:
+            - 99d
           volumes:
           - name: jenkins-docker-cfg
             projected:
@@ -66,6 +73,13 @@ pipeline {
                 steps {
                     container('kaniko') {
                       sh '/kaniko/executor --context `pwd` --destination $REGISTRY/$PROJETO:$BUILD_NUMBER --force'
+                  }
+                }
+              }
+              stage('Deploy') {
+                steps {
+                    container('kubectl') {
+                      sh 'kubectl apply -f deployment.yaml'
                   }
                 }
               }
