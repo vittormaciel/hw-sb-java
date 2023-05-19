@@ -28,8 +28,7 @@ pipeline {
             imagePullPolicy: IfNotPresent
             command:
             - cat
-            ttyEnabled:
-            - true
+            tty: true
           volumes:
           - name: jenkins-docker-cfg
             projected:
