@@ -24,12 +24,12 @@ pipeline {
               - name: jenkins-docker-cfg
                 mountPath: /kaniko/.docker
           - name: kubectl
-            image: bitnami/kubectl
+            image: lachlanevenson/k8s-kubectl:v1.8.8
             imagePullPolicy: IfNotPresent
             command:
-            - sleep
-            args:
-            - 99d
+            - cat
+            ttyEnabled:
+            - true
           volumes:
           - name: jenkins-docker-cfg
             projected:
