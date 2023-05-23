@@ -24,7 +24,7 @@ pipeline {
               - name: jenkins-docker-cfg
                 mountPath: /kaniko/.docker
           - name: kubectl
-            image: lachlanevenson/k8s-kubectl:v1.8.8
+            image: bitnami/kubectl
             imagePullPolicy: IfNotPresent
             command:
             - cat
@@ -76,10 +76,13 @@ pipeline {
                 }
               }
               stage('Deploy') {
+                withCredentials([file(credentialsId: 'kubeconfigjenkins', variable: 'kubeconfigvittor')]) {
                 steps {
                     container('kubectl') {
+                      sh 'export KUBECONFIG=$kubeconfigvittor'
                       sh 'kubectl apply -f deployment.yaml'
                   }
+                }
                 }
               }
   }
