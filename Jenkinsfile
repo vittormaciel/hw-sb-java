@@ -78,7 +78,7 @@ pipeline {
               stage('Deploy') {
                 steps {
                     container('kubectl') {
-                      withKubeConfig(credentialsId: 'kubeconfigjenkins') {
+                      withKubeCredentials(kubectlCredentials: [[credentialsId: 'kubeconfigjenkins', serverUrl: 'https://192.168.49.2:8443']]) {
                       sh 'kubectl apply -f deployment.yaml'
                   }
                 }
