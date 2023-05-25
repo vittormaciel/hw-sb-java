@@ -78,7 +78,8 @@ pipeline {
               stage('Deploy') {
                 steps {
                     container('kubectl') {
-                      withCredentials([file(credentialsId: 'kubeconfigjenkins', variable: 'kubeconfigvittor')]) {​
+                      withCredentials([file(credentialsId: 'kubeconfigjenkins', variable: 'kubeconfigvittor')]) {
+                      sh 'export KUBECONFIG=$kubeconfigvittor'
                       sh 'kubectl apply -f deployment.yaml'
                   }
                 }
