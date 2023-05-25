@@ -79,7 +79,7 @@ pipeline {
                 steps {
                     container('alpinekubectl') {
                       withCredentials([file(credentialsId: 'kubeconfigjenkins', variable: 'config')]) {
-                      sh 'kubectl apply -f deployment.yaml --kubeconfig=$config'
+                      sh './kubectl apply -f deployment.yaml --kubeconfig=$config'
                   }
                 }
                }
