@@ -23,8 +23,8 @@ pipeline {
             volumeMounts:
               - name: jenkins-docker-cfg
                 mountPath: /kaniko/.docker
-          - name: kubectl
-            image: bitnami/kubectl
+          - name: alpinekubectl
+            image: vittormaciel/alpine-kubectl:latest
             imagePullPolicy: IfNotPresent
             command:
             - cat
@@ -77,12 +77,10 @@ pipeline {
               }
               stage('Deploy') {
                 steps {
-                    container('maven') {
+                    container('alpinekubectl') {
                       withCredentials([file(credentialsId: 'kubeconfigjenkins', variable: 'config')]) {
-                      sh 'curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"'
-                      sh 'chmod +x ./kubectl'
-                      sh 'export KUBECONFIG=$config'
-                      sh './kubectl apply -f deployment.yaml --kubeconfig=$config'
+                      sh 'chmod +x deploy.sh'
+                      sh './deploy.sh'
                   }
                 }
                }
