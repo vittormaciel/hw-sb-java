@@ -20,6 +20,13 @@ pipeline {
             - sleep
             args:
             - 99d
+          - name: alpinekubectl
+            image: docker.io/vittormaciel/alpine-kubectl:latest
+            imagePullPolicy: IfNotPresent
+            command:
+            - sleep
+            args:
+            - 99d
             volumeMounts:
               - name: jenkins-docker-cfg
                 mountPath: /kaniko/.docker
@@ -71,7 +78,7 @@ pipeline {
               }
               stage('Deploy') {
                 steps {
-                    container('maven') {
+                    container('alpinekubectl') {
                       withCredentials([file(credentialsId: 'kubeconfigjenkins', variable: 'config')]) {
                       sh 'chmod +x deploy.sh'
                       sh './deploy.sh'
