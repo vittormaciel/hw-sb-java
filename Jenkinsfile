@@ -78,9 +78,11 @@ pipeline {
               stage('Deploy') {
                 steps {
                     container('kubectl') {
-                      withKubeCredentials(kubectlCredentials: [[credentialsId: 'kubeconfigjenkins', serverUrl: 'https://192.168.58.2:8443']]) {
-                      sh 'export KUBECONFIG=$kubeconfigvittor'
-                      sh 'kubectl apply -f deployment.yaml'
+                      withCredentials([file(credentialsId: 'kubeconfigjenkins', variable: 'config')]) {
+                        sh 'curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"'
+                        sh 'chmod +x ./kubectl'
+                        sh 'export KUBECONFIG=$config'
+                        sh 'kubectl apply -f deployment.yaml'
                   }
                 }
                 }
