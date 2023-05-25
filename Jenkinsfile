@@ -23,12 +23,6 @@ pipeline {
             volumeMounts:
               - name: jenkins-docker-cfg
                 mountPath: /kaniko/.docker
-          - name: kubectl
-            image: bitnami/kubectl
-            imagePullPolicy: IfNotPresent
-            command:
-            - cat
-            tty: true
           volumes:
           - name: jenkins-docker-cfg
             projected:
