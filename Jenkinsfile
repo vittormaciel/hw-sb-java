@@ -25,7 +25,7 @@ pipeline {
                 mountPath: /kaniko/.docker
           - name: alpinekubectl
             image: vittormaciel/alpine-kubectl:latest
-            imagePullPolicy: IfNotPresent
+            imagePullPolicy: Always
             command:
             - cat
             tty: true
