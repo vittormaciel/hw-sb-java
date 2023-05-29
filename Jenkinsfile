@@ -78,8 +78,8 @@ pipeline {
               stage('Deploy') {
                 steps {
                     container('alpinekubectl') {
-                      withCredentials([file(credentialsId: 'kubeconfigjenkins', variable: 'config')]) {
-                      sh 'kubectl apply -f deployment.yaml --kubeconfig=$config'
+                      withKubeConfig(serverUrl: 'https://192.168.49.2:8443') {
+                      sh 'kubectl apply -f deployment.yaml'
                   }
                 }
                }
