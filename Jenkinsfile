@@ -63,27 +63,21 @@ pipeline {
               stage('Maven') {
                 steps {
                   container('maven') {
-                    script {
                     sh 'mvn install -DskipTests'
                     sh 'mvn package -DskipTests'
-                    if (env.BRANCH_NAME == 'master') {
-                      echo 'Hello from master'
-                  } else {
-                      sh "echo 'Hello from ${env.BRANCH_NAME}!'"
-                  }
-                  }
                   }
                 }
               }
               stage('Kaniko') {
                 steps {
                     container('kaniko') {
-                    //   if (env.BRANCH_NAME == 'dev') {
-                    //     sh '/kaniko/executor --context `pwd` --destination $REGISTRY/$PROJETO:dev-$BUILD_NUMBER --force'
-                    // } else {
-                    //     sh '/kaniko/executor --context `pwd` --destination $REGISTRY/$PROJETO:latest --force'
-                    //   }
-                    // sh 'echo ${env.BRANCH_NAME}'
+                      script {
+                      if (env.BRANCH_NAME == 'dev') {
+                        sh '/kaniko/executor --context `pwd` --destination $REGISTRY/$PROJETO:dev-$BUILD_NUMBER --force'
+                    } else {
+                        sh '/kaniko/executor --context `pwd` --destination $REGISTRY/$PROJETO:latest --force'
+                      }
+                   }
                   }
                 }
               } 
