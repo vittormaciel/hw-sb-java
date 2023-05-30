@@ -70,6 +70,7 @@ pipeline {
                   } else {
                       sh "echo 'Hello from ${env.BRANCH_NAME}!'"
                   }
+                  }
                 }
               }
               stage('Kaniko') {
@@ -80,7 +81,7 @@ pipeline {
                     // } else {
                     //     sh '/kaniko/executor --context `pwd` --destination $REGISTRY/$PROJETO:latest --force'
                     //   }
-                      sh 'echo ${env.BRANCH_NAME}'
+                    // sh 'echo ${env.BRANCH_NAME}'
                   }
                 }
               } 
