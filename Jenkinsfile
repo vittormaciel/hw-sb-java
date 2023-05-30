@@ -65,6 +65,10 @@ pipeline {
                   container('maven') {
                     sh 'mvn install -DskipTests'
                     sh 'mvn package -DskipTests'
+                    if (env.BRANCH_NAME == 'master') {
+                      echo 'Hello from master'
+                  } else {
+                      sh "echo 'Hello from ${env.BRANCH_NAME}!'"
                   }
                 }
               }
