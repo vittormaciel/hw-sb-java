@@ -72,7 +72,7 @@ pipeline {
                 steps {
                     container('kaniko') {
                       if (env.BRANCH_NAME == 'dev') {
-                        sh '/kaniko/executor --context `pwd` --destination $REGISTRY/$PROJETO:dev:$BUILD_NUMBER --force'
+                        sh '/kaniko/executor --context `pwd` --destination $REGISTRY/$PROJETO:dev-$BUILD_NUMBER --force'
                     } else {
                         sh '/kaniko/executor --context `pwd` --destination $REGISTRY/$PROJETO:latest --force'
                       }
