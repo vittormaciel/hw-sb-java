@@ -71,12 +71,12 @@ pipeline {
               stage('Kaniko') {
                 steps {
                     container('kaniko') {
-                      if (env.BRANCH_NAME == 'dev') {
-                        sh '/kaniko/executor --context `pwd` --destination $REGISTRY/$PROJETO:dev-$BUILD_NUMBER --force'
-                    } else {
-                        sh '/kaniko/executor --context `pwd` --destination $REGISTRY/$PROJETO:latest --force'
-                      }
-                      
+                    //   if (env.BRANCH_NAME == 'dev') {
+                    //     sh '/kaniko/executor --context `pwd` --destination $REGISTRY/$PROJETO:dev-$BUILD_NUMBER --force'
+                    // } else {
+                    //     sh '/kaniko/executor --context `pwd` --destination $REGISTRY/$PROJETO:latest --force'
+                    //   }
+                      sh 'echo ${env.BRANCH_NAME}'
                   }
                 }
               } 
