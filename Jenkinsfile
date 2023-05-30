@@ -85,7 +85,14 @@ pipeline {
                 steps {
                     container('alpinekubectl') {
                       withKubeConfig([credentialsId: 'kubeconfigjenkins']) {
-                      sh 'kubectl apply -f deployment.yaml'
+                      script {
+                      if (env.BRANCH_NAME == 'dev') {
+                        sh "sed -i 's/latest/dev-${BUILD_NUMBER}/' deployment.yaml"
+                        sh 'kubectl apply -f deployment.yaml'
+                    } else {
+                        sh 'kubectl apply -f deployment.yaml'
+                      }
+                   } 
                   }
                 }
                }
