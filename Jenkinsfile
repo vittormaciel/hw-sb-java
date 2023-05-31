@@ -91,12 +91,13 @@ pipeline {
                         sh "sed -i 's/prod/dev/' deployment.yaml"
                         sh 'kubectl apply -f deployment.yaml'
                     } else {
-                      steps {
-                        emailext mimeType: 'text/html', 
-                          subject: “APPROVAL RQD[JENKINS] ${currentBuild.fullDisplayName}”, 
-                          para: “ vittor.santos@sysmap.com.br “, 
-                          body: '''<a href=”${BUILD_URL }input”>clique para aprovar</a>'''
-                      }
+                        timeout(time: 15, unit: "MINUTES") {
+	                      input message: 'Do you want to approve the deployment?', ok: 'Yes'
+	                }
+                        emailext body: 'Há um deploy em Produção aguardando sua aprovação.', 
+                          recipientProviders: [buildUser()], 
+                          subject: 'Deployment em Produção - PENDENTE APROVAÇÃO', 
+                          to: 'vittor.santos@sysmap.com.br'
                         sh 'kubectl apply -f deployment.yaml'
                      }
                    } 
