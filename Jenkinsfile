@@ -91,8 +91,11 @@ pipeline {
                         sh "sed -i 's/prod/dev/' deployment.yaml"
                         sh 'kubectl apply -f deployment.yaml'
                     } else {
+                        timeout(time: 15, unit: "MINUTES") {
+	                      input message: 'Você quer aprovar o deployment em Produção?', ok: 'Sim'
                         sh 'kubectl apply -f deployment.yaml'
                       }
+                     }
                    } 
                   }
                 }
