@@ -88,7 +88,7 @@ pipeline {
                       script {
                       if (env.BRANCH_NAME == 'dev') {
                         sh "sed -i 's/latest/dev-${BUILD_NUMBER}/' deployment.yaml"
-                        sh "sed -i 's/prod/dev' deployment.yaml"
+                        sh "sed -i 's/prod/dev/' deployment.yaml"
                         sh 'kubectl apply -f deployment.yaml'
                     } else {
                         sh 'kubectl apply -f deployment.yaml'
