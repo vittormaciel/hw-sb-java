@@ -92,12 +92,8 @@ pipeline {
                         sh 'kubectl apply -f deployment.yaml'
                     } else {
                         timeout(time: 15, unit: "MINUTES") {
-	                      input message: 'Do you want to approve the deployment?', ok: 'Yes'
+	                      input message: 'Você deseja aprovar este deployment em' (env.BRANCH_NAME)'?', ok: 'Yes'
 	                }
-                        emailext body: 'Há um deploy em Produção aguardando sua aprovação.', 
-                          recipientProviders: [buildUser()], 
-                          subject: 'Deployment em Produção - PENDENTE APROVAÇÃO', 
-                          to: 'vittor.santos@sysmap.com.br'
                         sh 'kubectl apply -f deployment.yaml'
                      }
                    } 
