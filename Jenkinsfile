@@ -91,11 +91,10 @@ pipeline {
                         sh "sed -i 's/prod/dev/' deployment.yaml"
                         sh 'kubectl apply -f deployment.yaml'
                     } else {
-                        emailext mimeType: 'text/html', {
+                        emailext mimeType: 'text/html', 
                         subject: “APPROVAL RQD[JENKINS] ${currentBuild.fullDisplayName}”, 
                         para: “ vittor.santos@sysmap.com.br “, 
-                        body: '''<a href=”${BUILD_URL }input”>clique para aprovar</a>''' 
-                      }
+                        body: '''<a href=”${BUILD_URL }input”>clique para aprovar</a>'''                      
                         sh 'kubectl apply -f deployment.yaml'
                      }
                    } 
