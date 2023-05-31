@@ -93,9 +93,9 @@ pipeline {
                     } else {
                       steps {
                         emailext mimeType: 'text/html', 
-                        subject: “APPROVAL RQD[JENKINS] ${currentBuild.fullDisplayName}”, 
-                        para: “ vittor.santos@sysmap.com.br “, 
-                        body: '''<a href=”${BUILD_URL }input”>clique para aprovar</a>'''
+                          subject: “APPROVAL RQD[JENKINS] ${currentBuild.fullDisplayName}”, 
+                          para: “ vittor.santos@sysmap.com.br “, 
+                          body: '''<a href=”${BUILD_URL }input”>clique para aprovar</a>'''
                       }
                         sh 'kubectl apply -f deployment.yaml'
                      }
