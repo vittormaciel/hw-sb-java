@@ -92,7 +92,7 @@ pipeline {
                         sh 'kubectl apply -f deployment.yaml'
                     } else {
                         timeout(time: 15, unit: "MINUTES") {
-	                      input message: 'Você deseja aprovar este deployment em' ${env.BRANCH_NAME}'?', ok: 'Yes'
+	                      input message: 'Você deseja aprovar este deployment em' {env.BRANCH_NAME}'?', ok: 'Yes'
 	                }
                         sh 'kubectl apply -f deployment.yaml'
                      }
