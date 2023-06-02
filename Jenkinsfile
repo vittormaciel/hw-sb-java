@@ -88,7 +88,7 @@ pipeline {
                       withKubeConfig([credentialsId: 'kubeconfigjenkins']) {
                       script {
                       if (env.BRANCH_NAME == 'dev') {
-                        sh "sed -i 's/latest/dev-${BUILD_NUMBER}/' /hwjavahelm/values.yaml"
+                        sh "sed -i 's/latest/dev-${BUILD_NUMBER}/' ./hwjavahelm/values.yaml"
                         sh 'helm upgrade --install helloworld ./hwjavahelm -n dev'
                     } else {
                         timeout(time: 15, unit: "MINUTES") {
