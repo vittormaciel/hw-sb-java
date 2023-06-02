@@ -84,7 +84,7 @@ pipeline {
               } 
               stage('Deploy') {
                 steps {
-                    container('alpinekubectl') {
+                    container('helm') {
                       withKubeConfig([credentialsId: 'kubeconfigjenkins']) {
                       script {
                       if (env.BRANCH_NAME == 'dev') {
