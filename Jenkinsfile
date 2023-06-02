@@ -23,12 +23,13 @@ pipeline {
             volumeMounts:
               - name: jenkins-docker-cfg
                 mountPath: /kaniko/.docker
-          - name: alpinekubectl
-            image: vittormaciel/alpine-kubectl:latest
+          - name: helm
+            image: alpine/helm
             imagePullPolicy: Always
             command:
-            - cat
-            tty: true
+            - sleep
+            args:
+            - 99d
           volumes:
           - name: jenkins-docker-cfg
             projected:
@@ -87,14 +88,13 @@ pipeline {
                       withKubeConfig([credentialsId: 'kubeconfigjenkins']) {
                       script {
                       if (env.BRANCH_NAME == 'dev') {
-                        sh "sed -i 's/latest/dev-${BUILD_NUMBER}/' deployment.yaml"
-                        sh "sed -i 's/prod/dev/' deployment.yaml"
-                        sh 'kubectl apply -f deployment.yaml'
+                        sh "sed -i 's/latest/dev-${BUILD_NUMBER}/' /hwjavahelm/chart.yaml"
+                        sh 'helm upgrade --install helloworld ./hwjavahelm -n dev'
                     } else {
                         timeout(time: 15, unit: "MINUTES") {
 	                      input message: 'Você deseja aprovar este deployment em Produção?', ok: 'Yes'
 	                }
-                        sh 'kubectl apply -f deployment.yaml'
+                        sh 'helm upgrade --install helloworld ./hwjavahelm -n prod'
                      }
                    } 
                   }
