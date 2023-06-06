@@ -1,5 +1,5 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
   name: hello-world-vittor
   namespace: prod
@@ -27,6 +27,7 @@ spec:
       containers:
       - name: helloworldjava
         image: vittormaciel/helloworld-java:latest
+        imagePullPolicy: Always
 ---
 apiVersion: v1
 kind: Service
