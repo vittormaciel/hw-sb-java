@@ -4,7 +4,7 @@ metadata:
   name: hello-world-vittor
   namespace: prod
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       bb: web
