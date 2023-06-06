@@ -23,7 +23,7 @@ metadata:
   name: hello-world-vittor-service
   namespace: prod
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     bb: web
   ports:
