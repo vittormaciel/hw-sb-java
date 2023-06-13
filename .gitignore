@@ -267,3 +267,6 @@ $RECYCLE.BIN/
 /.idea/misc.xml
 /.idea/vcs.xml
 /.idea/**
+
+# Minha lista de ignore
+.pod-selector.yaml
