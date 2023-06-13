@@ -269,4 +269,4 @@ $RECYCLE.BIN/
 /.idea/**
 
 # Minha lista de ignore
-.pod-selector.yaml
+pod-selector.yaml
