@@ -274,3 +274,4 @@ secret-pod.yaml
 secret.yaml
 configmap.yaml
 pod-cm.yaml
+storageclass.yaml
