@@ -8,10 +8,10 @@ spec:
   strategy:
     canary:
     #  canaryService: hello-world-vittor-canary
-      stableService: hello-world-vittor-stable
-      trafficRouting:
-        nginx: 
-          stableIngress: hello-world-vittor-stable
+     # stableService: hello-world-vittor-stable
+     # trafficRouting:
+      #  nginx: 
+      #    stableIngress: hello-world-vittor-stable
       steps:
       - setWeight: 20
       - pause: {}
