@@ -7,6 +7,11 @@ spec:
   replicas: 5
   strategy:
     canary:
+      canaryService: hello-world-vittor-canary
+      stableService: hello-world-vittor-stable
+      trafficRouting:
+        nginx: 
+          stableIngress: hello-world-vittor-stable
       steps:
       - setWeight: 20
       - pause: {}
@@ -32,7 +37,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: hello-world-vittor-service
+  name: hello-world-vittor-canary
   namespace: prod
 spec:
   type: ClusterIP
@@ -41,3 +46,34 @@ spec:
   ports:
   - port: 8080
     targetPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-world-vittor-stable
+  namespace: prod
+spec:
+  type: ClusterIP
+  selector:
+    bb: web
+  ports:
+  - port: 8081
+    targetPort: 8081
+
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: hello-world-vittor-stable
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: rollout.vittor.local
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: hello-world-vittor-stable
+          servicePort: 8081
