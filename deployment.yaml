@@ -23,11 +23,11 @@ spec:
       - pause: {duration: 10}
   selector:
     matchLabels:
-      app: hello-world-vittor
+      bb: web
   template:
     metadata:
       labels:
-        app: hello-world-vittor
+        bb: web
     spec:
       containers:
       - name: helloworldjava
@@ -41,10 +41,12 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: hello-world-vittor
+    bb: web
   ports:
-  - port: 8080
-    targetPort: 8080
+  - port: 80
+    targetPort: http
+    protocol: TCP
+    name: http
 
 ---
 apiVersion: v1
@@ -54,10 +56,12 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: hello-world-vittor
+    bb: web
   ports:
-  - port: 8081
-    targetPort: 8081
+  - port: 80
+    targetPort: http
+    protocol: TCP
+    name: http
 ---
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
@@ -74,4 +78,4 @@ spec:
       - path: /
         backend:
           serviceName: hello-world-vittor-stable
-          servicePort: 8081
+          servicePort: 80
