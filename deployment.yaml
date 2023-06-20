@@ -1,20 +1,3 @@
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
-metadata:
-  name: nginx
-  namespace: prod
-  annotations:
-    kubernetes.io/ingress.class: nginx
-spec:
-  rules:
-  - host: https://192.168.49.2:8443 
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: hello-world-vittor-stable
-          servicePort: 8081
----
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
@@ -77,3 +60,20 @@ spec:
   ports:
   - port: 8081
     targetPort: 8081
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: hello-world-vittor-stable
+  namespace: prod
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: https://192.168.49.2:8443 
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: hello-world-vittor-stable
+          servicePort: 8081
