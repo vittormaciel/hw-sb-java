@@ -33,6 +33,10 @@ spec:
       - name: helloworldjava
         image: vittormaciel/helloworld-java:dev-23
         imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8080
+          protocol: TCP
 ---
 apiVersion: v1
 kind: Service
