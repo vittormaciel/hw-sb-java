@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
       - name: helloworldjava
-        image: vittormaciel/helloworld-java:dev-23
+        image: vittormaciel/helloworld-java:latest
         imagePullPolicy: Always
         ports:
         - name: http
