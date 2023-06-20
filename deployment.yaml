@@ -21,7 +21,7 @@ spec:
       - pause: {}
       - setWeight: 80
       - pause: {duration: 10}
-  revisionHistoryLimit: 2
+  revisionHistoryLimit: 1
   selector:
     matchLabels:
       bb: web
