@@ -47,7 +47,7 @@ spec:
   selector:
     bb: web
   ports:
-  - port: 80
+  - port: 8080
     targetPort: http
     protocol: TCP
     name: http
@@ -62,7 +62,7 @@ spec:
   selector:
     bb: web
   ports:
-  - port: 80
+  - port: 8080
     targetPort: http
     protocol: TCP
     name: http
@@ -85,4 +85,4 @@ spec:
           service:
             name: hello-world-vittor-stable
             port: 
-              number: 80
+              number: 8080
