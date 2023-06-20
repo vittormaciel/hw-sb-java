@@ -69,13 +69,16 @@ metadata:
   name: hello-world-vittor-stable
   namespace: prod
   annotations:
-    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
   rules:
-  - host: rollout.vittor.demo
+  - host: rollout.vittor.local
     http:
       paths:
       - path: /
+        pathType: ImplementationSpecific
         backend:
-          serviceName: hello-world-vittor-stable
-          servicePort: 80
+          service:
+            name: hello-world-vittor-stable
+            port: 
+              number: 80
