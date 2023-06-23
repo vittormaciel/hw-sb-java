@@ -16,9 +16,10 @@
           run: mvn --batch-mode --update-snapshots package
         - name: Copy Jar file
           run: |
-          mkdir /work/application.jar
-          mv target/*.jar /work/application.jar
+            mkdir /work/application.jar
+            mv target/*.jar /work/application.jar
         - uses: actions/upload-artifact@master
           with:
             name: jar-file
             path: application.jar
+  
