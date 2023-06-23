@@ -1,12 +1,10 @@
-FROM registry.access.redhat.com/ubi8/ubi-minimal:8.5
+FROM openjdk:8-jdk
 
-LABEL BASE_IMAGE="registry.access.redhat.com/ubi8/ubi-minimal:8.5"
-LABEL JAVA_VERSION="11"
+RUN mkdir /app
 
-RUN microdnf install --nodocs java-11-openjdk-headless && microdnf clean all
+COPY app.jar /app/app.jar
 
-WORKDIR /
-COPY target/*.jar app.jar
+WORKDIR /app
 
 EXPOSE 8080
-CMD ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
