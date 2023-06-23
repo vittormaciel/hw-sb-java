@@ -15,7 +15,7 @@
         - name: Build
           run: mvn --batch-mode --update-snapshots package
         - name: Copy Jar file
-          run: mv target/*.jar /app/app.jar
+          run: mv target/*.jar app.jar
         - uses: actions/upload-artifact@master
           with:
             name: jar-file
