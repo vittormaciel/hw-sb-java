@@ -45,5 +45,5 @@
           with:
             context: .
             push: true
-            tags: thearaseng/dockerized-spring-boot-app:${{ env.DATE }}
+            tags: vittormaciel/hw-sb-java:${{ env.DATE }}
   
