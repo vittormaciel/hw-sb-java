@@ -45,5 +45,5 @@
           with:
             context: .
             push: true
-            tags: vittormaciel/hw-sb-java:${{ env.DATE }}
+            tags: vittormaciel/helloworld-java:${{ env.DATE }}
   
