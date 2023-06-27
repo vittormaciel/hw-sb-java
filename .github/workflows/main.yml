@@ -51,7 +51,7 @@
 
     Deploy-on-Minikube:
       runs-on: vittor-github
-      name: RUN deploy to minikube
+      needs: build-image
       steps:
         - uses: actions/checkout@v2
         - name: Start minikube
