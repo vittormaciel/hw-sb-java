@@ -48,21 +48,3 @@
             context: .
             push: true
             tags: vittormaciel/helloworld-java:latest
-
-    Deploy-on-Minikube:
-      runs-on: vittor-github
-      needs: build-image
-      steps:
-        - uses: actions/checkout@v2
-        - name: Start minikube
-          uses: medyagh/setup-minikube@master
-        - name: Try the cluster !
-          run: kubectl get pods -A
-        - name: Deploy to minikube
-          run: |
-            kubectl create ns prod
-            kubectl apply -f deployment.yaml -n prod
-        - name: Teste pods
-          run: |
-            kubectl get pods -n prod
-  
