@@ -53,6 +53,7 @@
       runs-on: vittor-github
       needs: build-image
       steps:
+        - uses: actions/checkout@v3
         - uses: azure/k8s-set-context@v3
           with:
             method: kubeconfig
