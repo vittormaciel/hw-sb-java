@@ -48,3 +48,19 @@
             context: .
             push: true
             tags: vittormaciel/helloworld-java:latest
+        
+    deploy:
+      runs-on: vittor-github
+      needs: build-image
+      steps:
+        - uses: azure/k8s-set-context@v3
+          with:
+            method: kubeconfig
+            kubeconfig: ${{ secrets.MYMINIKUBE_KUBECONFIG }}
+        - name: kubectl-simple
+          uses: steebchen/kubectl@v2.1.1
+          with:
+            config: ${{ secrets.MYMINIKUBE_KUBECONFIG }}
+            command: apply -f deployment.yaml
+
+
