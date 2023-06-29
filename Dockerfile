@@ -2,7 +2,7 @@ FROM openjdk:11
 
 RUN mkdir /app
 
-COPY target/*.jar /app/app.jar
+COPY app.jar /app/app.jar
 
 WORKDIR /app
 
