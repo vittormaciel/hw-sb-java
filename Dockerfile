@@ -1,8 +1,8 @@
-FROM openjdk:8-jdk
+FROM openjdk:11
 
 RUN mkdir /app
 
-COPY app.jar /app/app.jar
+COPY target/*.jar /app/app.jar
 
 WORKDIR /app
 
