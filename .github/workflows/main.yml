@@ -18,7 +18,9 @@
             distribution: 'adopt'
             architecture: x64
         - name: Build
-          run: mvn --batch-mode --update-snapshots package
+          run: |
+            mvn --batch-mode --update-snapshots install -DskipTests
+            mvn --batch-mode --update-snapshots package -DskipTests
         - name: Copy Jar file
           run: mv target/*.jar app.jar
         - uses: actions/upload-artifact@master
