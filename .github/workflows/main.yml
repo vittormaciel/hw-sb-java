@@ -30,6 +30,7 @@
 
     SAST:
       runs-on: vittor-github
+      needs: build
       steps:
         - uses: actions/checkout@v3
         - uses: AppThreat/sast-scan-action@master
@@ -38,7 +39,7 @@
 
     sonarqube:
       runs-on: vittor-github
-      needs: build
+      needs: SAST
       steps:
       - name: Set up Maven
         uses: stCarolas/setup-maven@v4.5
