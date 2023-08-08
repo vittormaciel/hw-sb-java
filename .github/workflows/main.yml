@@ -27,6 +27,15 @@
           with:
             name: jar-file
             path: app.jar
+
+    SAST:
+      runs-on: vittor-github
+      steps:
+        - uses: actions/checkout@v3
+        - uses: AppThreat/sast-scan-action@master
+          with:
+            type: "java"
+
     sonarqube:
       runs-on: vittor-github
       needs: build
